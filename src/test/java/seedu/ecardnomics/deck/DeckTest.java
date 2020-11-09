@@ -2,6 +2,8 @@ package seedu.ecardnomics.deck;
 
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class DeckTest {
@@ -57,7 +59,7 @@ class DeckTest {
 
     @Test
     void size() {
-        Deck deck = initialiseDeck(2);
+        Deck deck = initialiseDeck(2, new ArrayList<>());
         assertEquals(2, deck.size());
         deck.delete(1);
         assertEquals(1, deck.size());
@@ -65,6 +67,50 @@ class DeckTest {
         assertEquals(0, deck.size());
         deck.add(new FlashCard("q 1", "a 1"));
         assertEquals(1, deck.size());
+    }
+
+    @Test
+    void constructor_newDeckWithTags() {
+        ArrayList<String> tags =  new ArrayList<>();
+        tags.add("anime");
+        tags.add("unreal");
+        Deck deck = initialiseDeck(2, tags);
+        assertEquals(2, deck.getTag().size());
+    }
+
+    @Test
+    void getTagString_StringOfTags() {
+        ArrayList<String> tags =  new ArrayList<>();
+        tags.add("anime");
+        tags.add("unreal");
+        Deck deck = initialiseDeck(2, tags);
+        String expectedOutput = "anime | unreal";
+        assertEquals(expectedOutput, deck.getTagString());
+    }
+
+    @Test
+    void addTag_newTags_void() {
+        ArrayList<String> tags =  new ArrayList<>();
+        tags.add("anime");
+        tags.add("unreal");
+        Deck deck = initialiseDeck(2, tags);
+        ArrayList<String> newTags = new ArrayList<>();
+        newTags.add("for-kids");
+        deck.addTag(newTags);
+        assertEquals(3, deck.getTag().size());
+    }
+
+    @Test
+    void removeTag_newTags_void() {
+        ArrayList<String> tags =  new ArrayList<>();
+        tags.add("anime");
+        tags.add("unreal");
+        tags.add("for-kids");
+        Deck deck = initialiseDeck(2, tags);
+        ArrayList<String> removedTags = new ArrayList<>();
+        removedTags.add("for-kids");
+        deck.removeTag(removedTags);
+        assertEquals(2, deck.getTag().size());
     }
 
     // @Test
@@ -95,31 +141,32 @@ class DeckTest {
 
     @Test
     void delete_validIndex_success() {
-        Deck deck = initialiseDeck(2);
+        Deck deck = initialiseDeck(2, new ArrayList<>());
         deck.delete(1);
         assertEquals(1, deck.size());
     }
 
     @Test
     void testToString_default_goodFormat() {
-        Deck deck = initialiseDeck(2);
-        String deckString = "Pokemon:\n1. Question: q 1\nAnswer: a 1\n\n2. Question: q 2\nAnswer: a 2\n";
+        Deck deck = initialiseDeck(2, new ArrayList<>());
+        String deckString = "Pokemon:" + System.lineSeparator() + "1. Question: q 1"
+                + System.lineSeparator() + "   Answer:   a 1\n\n2. Question: q 2"
+                + System.lineSeparator() + "   Answer:   a 2";
         assertEquals(deckString, deck.toString());
     }
 
     @Test
     void testToString_withType_goodFormat() {
-        Deck deck = initialiseDeck(2);
-        String deckString = "1. Question: q 1\n" + System.lineSeparator() + "2. Question: q 2\n"
-                + System.lineSeparator();
-        String deckStringAns = "1. Question: q 1\nAnswer: a 1\n" + System.lineSeparator() + "2. Question: q 2\n"
-                + "Answer: a 2\n" + System.lineSeparator();
-        assertEquals(deckString, deck.toString("question"));
-        assertEquals(deckStringAns, deck.toString("answer"));
+        Deck deck = initialiseDeck(2, new ArrayList<>());
+        String deckString = "1. Question: q 1\n\n" + "2. Question: q 2";
+        String deckStringAns = "1. Question: q 1" + System.lineSeparator() + "   Answer:   a 1\n\n"
+                + "2. Question: q 2" + System.lineSeparator() + "   Answer:   a 2";
+        assertEquals(deckString, deck.toString(true));
+        assertEquals(deckStringAns, deck.toString(false));
     }
 
-    private Deck initialiseDeck(int size) {
-        Deck deck = new Deck("Pokemon");
+    Deck initialiseDeck(int size, ArrayList<String> tags) {
+        Deck deck = new Deck("Pokemon", tags);
         for (int i = 1; i <= size; i++) {
             FlashCard flashCard = new FlashCard(String.format("q %d", i), String.format("a %d", i));
             deck.add(flashCard);

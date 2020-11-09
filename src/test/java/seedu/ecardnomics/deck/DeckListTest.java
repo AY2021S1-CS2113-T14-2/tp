@@ -20,11 +20,11 @@ class DeckListTest {
     @Test
     void testToString() {
         DeckList deckList = initialiseDeckList(2);
-        String deckListString = "Decks:\n1. deck 1\n2. deck 2";
+        String deckListString = "1. deck 1\n2. deck 2";
         assertEquals(deckListString, deckList.toString());
     }
 
-    private DeckList initialiseDeckList(int size) {
+    DeckList initialiseDeckList(int size) {
         DeckList deckList = new DeckList();
         for (int i = 1; i <= size; i++) {
             Deck deck = new Deck(String.format("deck %d", i));

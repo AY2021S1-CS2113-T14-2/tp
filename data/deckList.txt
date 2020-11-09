@@ -1,0 +1,64 @@
+================================================================================
+deck | Micro-Economics
+tags | Economics | EC1301
+Q | What is the Law of demand?
+A | When the price of a good rises, the quantity of the good demanded will fall, ceteris paribus.
+Q | What is the Law of supply?
+A | When the price of a good increases, the quantity supplied increases, ceteris paribus.
+Q | What is price elasticity of demand?
+A | Percentage change in quantity demanded caused by a 1 percent change in price.
+Q | What is price elasticity of supply?
+A | Percentage change in quantity supplied caused by a 1 percent change in price.
+Q | What is Market Failure?
+A | Market failure is the economic situation defined by an inefficient distribution of goods and services in the free market.
+================================================================================
+deck | Macro-Economics
+tags | Economics | EC1301
+Q | What are ways GDP can be calculated?
+A | Three ways: Expenditure approach, Value-addedd approach and Factor payments approach.
+Q | What is the GDP formula using the Expenditure approach?
+A | GDP = C + I + G + NX
+Q | Define frictional unemployment.
+A | Unemployment related to time taken for people to find new jobs.
+Q | Define seasonal unemployment.
+A | Unemployment related to changes in weather, tourist patterns, or other seasonal factors.
+Q | Define structural unemployment.
+A | Unemployment related to skill mismatch between workers' skills and employers' requirements.
+Q | Define cyclical unemployment.
+A | Unemployment arising from changes in production over the business cycle.
+================================================================================
+deck | Object-oriented Programming
+tags | Computer | Science | CS2113
+Q | What are the programming paradigms based on OODP?
+A | Abstraction, Polymorphism, Inheritence, Encapsulation
+Q | What are access modifiers?
+A | Access level modifiers determine whether other classes can use a particular field or invoke a particular method.
+Q | How do you represent for and while loops in a sequence diagram?
+A | Using the "loop" notation.
+================================================================================
+deck | Test Deck
+tags | TESTING | DECK | TAGS
+Q | TEST 1: Empty Answer
+A |
+Q | TEST 2: Empty Answer with whitespaces
+A |
+Q |
+A | TEST 3: Empty Question
+Q |
+A | TEST 4: Empty Question with whitespaces
+Q | TEST 5: Both question and answer empty
+A | Following QNA are empty.
+Q |
+A |
+Q | TEST 6: Non-alphanumeric question and answer
+A | ./!@$#*&#
+Q | ./*-+""
+A | TEST 7: Non-alphanumeric question and answer
+Q | CORRECT QUESTION
+A | CORRECT ANSWER
+================================================================================
+deck | Test Deck
+tags | Duplicate | Deck | Name | Test
+Q | TEST WHETHER EXISTING DECK NAME
+A | SHOULD BE NOT ALLOWED?
+================================================================================

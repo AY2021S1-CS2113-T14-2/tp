@@ -1,5 +1,6 @@
-package seedu.ecardnomics.command;
+package seedu.ecardnomics.command.deck;
 
+import seedu.ecardnomics.command.Command;
 import seedu.ecardnomics.deck.Deck;
 
 public abstract class DeckCommand extends Command {
@@ -10,6 +11,7 @@ public abstract class DeckCommand extends Command {
     }
 
     public DeckCommand(Deck currentDeck) {
+        assert currentDeck != null : "Command must operate on a deck.";
         this.currentDeck = currentDeck;
     }
 

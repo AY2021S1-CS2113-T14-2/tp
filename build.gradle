@@ -12,7 +12,13 @@ repositories {
 dependencies {
     testImplementation group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.5.0'
     testRuntimeOnly group: 'org.junit.jupiter', name: 'junit-jupiter-engine', version: '5.5.0'
+
+    compile group: 'org.apache.poi', name: 'poi', version: '4.1.2'
+    compile group: 'org.apache.poi', name: 'poi-ooxml', version: '4.1.2'
+
+    compile 'org.beryx:awt-color-factory:1.0.1'
 }
+
 
 test {
     useJUnitPlatform()
@@ -43,4 +49,6 @@ checkstyle {
 
 run{
     standardInput = System.in
+    enableAssertions = true
+
 }

@@ -2,21 +2,30 @@ package seedu.ecardnomics;
 
 import seedu.ecardnomics.command.Command;
 import seedu.ecardnomics.command.deck.DoneEditCommand;
+import seedu.ecardnomics.command.game.DoneGameCommand;
+import seedu.ecardnomics.command.game.GameStartCommand;
 import seedu.ecardnomics.command.normal.EditCommand;
-import seedu.ecardnomics.command.deck.ExitCommand;
+import seedu.ecardnomics.command.ExitCommand;
+import seedu.ecardnomics.command.normal.StartCommand;
 import seedu.ecardnomics.deck.Deck;
 import seedu.ecardnomics.deck.DeckList;
+import seedu.ecardnomics.game.Game;
 import seedu.ecardnomics.parser.DeckParser;
 import seedu.ecardnomics.parser.NormalParser;
+import seedu.ecardnomics.storage.LogStorage;
+import seedu.ecardnomics.storage.Storage;
+
+import java.io.IOException;
 
 /**
  * Main Class for eCardnomics - Flash Card Manager Command Line Program.
  */
 public class Main {
 
-    public static final double VERSION_NUMBER = 1.0;
+    public static final double VERSION_NUMBER = 2.1;
     public static DeckList deckList = new DeckList();
     public static NormalParser normalParser = new NormalParser(deckList);
+    public static Storage storage = new Storage();
 
     /**
      * Executes the command.
@@ -34,7 +43,7 @@ public class Main {
      * @return Command used to exit Deck Mode (either <code>done</code> or <code>exit</code>)
      */
     public static Command runDeckMode(Deck deck) {
-        DeckParser deckParser = new DeckParser(deck);
+        DeckParser deckParser = new DeckParser(deckList, deck);
 
         String userInput;
         Command command;
@@ -48,9 +57,24 @@ public class Main {
             executeCommand(command);
 
         } while (!DoneEditCommand.isDoneEdit(command)
-                && !ExitCommand.isExit(command));
+                && !ExitCommand.isExit(command)
+                && !StartCommand.isStart(command));
 
         return command;
+    }
+
+    /**
+     * Runs Game Mode for specified deck.
+     *
+     * @param deck to run Game Mode on
+     * @return Command used to exit Game Mode (either <code>done</code> or <code>exit</code>)
+     */
+    public static Command runGameMode(Deck deck) {
+        GameStartCommand gameStartCommand = new GameStartCommand(deck);
+        executeCommand(gameStartCommand);
+
+        Game game = gameStartCommand.getGameInstance();
+        return game.run();
     }
 
     /**
@@ -67,7 +91,6 @@ public class Main {
             Ui.printNormalPrompt();
             userInput = Ui.readUserInput();
 
-
             command = normalParser.parse(userInput);
 
             executeCommand(command);
@@ -81,6 +104,14 @@ public class Main {
                 }
             }
 
+            if (StartCommand.isStart(command)) {
+                StartCommand startCommand = (StartCommand) command;
+                command = runGameMode(startCommand.getDeck());
+
+                if (command instanceof DoneGameCommand) {
+                    Ui.printNormalWelcome();
+                }
+            }
 
         } while (!ExitCommand.isExit(command));
 
@@ -93,10 +124,14 @@ public class Main {
      * @param args Arguments from command line when user starts the program
      */
     public static void main(String[] args) {
-        // TEMP FOR TESTING
-        Deck pokemon = new Deck("Pokemon");
-        deckList.addDeck(pokemon);
+        deckList = storage.load(deckList);
+
         runNormalMode();
-        // runDeckMode(pokemon);
+
+        try {
+            storage.write(Main.deckList);
+        } catch (IOException e) {
+            Ui.printMessage("Unable to write file...");
+        }
     }
 }

@@ -11,6 +11,7 @@ public class EditCommand extends NormalCommand {
     /** Constructor. */
     public EditCommand(DeckList deckList, Deck deck) {
         super(deckList);
+        assert deck != null : "Do not operate on a null reference.";
         this.deck = deck;
     }
 

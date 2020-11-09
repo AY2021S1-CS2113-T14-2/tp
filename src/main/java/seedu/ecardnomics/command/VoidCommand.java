@@ -12,6 +12,7 @@ public class VoidCommand extends Command {
 
     /** Constructor with <code>errorMessage</code>. */
     public VoidCommand(String errorMessage) {
+        assert (errorMessage != null && !errorMessage.isEmpty()) : "Must specify error message";
         this.errorMessage = errorMessage;
     }
 
